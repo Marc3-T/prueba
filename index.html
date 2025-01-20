@@ -1,430 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un mes juntos ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="icon" href="icon.png" type="image/png">
-    <style>
-        
-        body {
-            font-family: 'Patrick Hand', cursive;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(120deg, #ff758c, #ff7eb3, #fad0c4);
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matemáticas para Niños</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
 
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
+    h1 {
+      color: #4CAF50;
+      margin-top: 50px;
+    }
 
-        .heart {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: #ff6f61;
-            transform: rotate(45deg);
-            opacity: 0;
-            animation: float 6s linear infinite, moveUp 6s linear infinite;
-        }
+    .question-container {
+      margin: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        .heart:before,
-        .heart:after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: #ff6f61;
-            border-radius: 50%;
-        }
+    .option {
+      display: block;
+      background-color: #f2f2f2;
+      margin: 10px;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        .heart:before {
-            top: -15px;
-            left: 0;
-        }
+    .option:hover {
+      background-color: #e7f3e7;
+    }
 
-        .heart:after {
-            left: -15px;
-            top: 0;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateX(0) rotate(45deg);
-                opacity: 0;
-            }
-            50% {
-                transform: translateX(10px) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(-10px) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes moveUp {
-            0% {
-                bottom: -10%;
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                bottom: 110%;
-                opacity: 0;
-            }
-        }
-
-        .screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            transition: opacity 0.5s, visibility 0.5s;
-            z-index: 2;
-        }
-
-        .screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .gift-screen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: #fff;
-            border: 5px solid #ff6f61;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .gift-image-container {
-            width: 150px;
-            height: 150px;
-            background: transparent;
-            position: relative;
-            margin-bottom: 20px;
-            animation: shake 1.5s ease-in-out infinite;
-        }
-
-        .gift-image-container img {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        .gift-lid {
-            position: absolute;
-            width: 150px;
-            height: 20px;
-            background: #ffffff;
-            border-radius: 10px 10px 0 0;
-            top: -20px;
-            animation: bounce 1.5s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                top: -20px;
-            }
-            50% {
-                top: -30px;
-            }
-        }
-
-        @keyframes shake {
-            0%, 100% {
-                transform: rotate(0);
-            }
-            25% {
-                transform: rotate(5deg);
-            }
-            75% {
-                transform: rotate(-5deg);
-            }
-        }
-
-        .gift-message {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #ff6f61;
-        }
-
-        .open-button {
-            background: #ff6f61;
-            color: white;
-            font-size: 1.2em;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .open-button:hover {
-            background: #ff7e74;
-        }
-
-        #book-container {
-            display: none;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            z-index: 1;
-            padding-top: 5%;
-        }
-
-        #book {
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            background: #ffffffdd;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .page {
-            display: none;
-            padding: 20px;
-        }
-
-        .page img {
-            width: 100%;
-            border-radius: 15px;
-            border: 3px solid #ff6f61;
-        }
-
-        .page p {
-            margin: 10px 0 0;
-            font-size: 1.2em;
-            color: #555;
-            font-style: italic;
-        }
-
-        .title {
-            font-size: 1.4em;
-            font-weight: bold;
-            margin: 15px 0;
-            color: #ff6f61;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: #ff6f61;
-            border-top: 2px solid #ffffff;
-        }
-
-        .controls button {
-            background: #ffffff;
-            color: #ff6f61;
-            border: none;
-            padding: 15px;
-            font-size: 2.5em;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .controls button:hover {
-            background: #ffe5e0;
-        }
-
-        .page-indicator {
-            font-size: 1.2em;
-            color: #ffffff;
-        }
-
-        .countdown {
-            font-size: 1.5em;
-            color: #ff6f61;
-            font-weight: bold;
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .countdown span {
-            background: #ffe5e0;
-            padding: 10px 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    .score {
+      font-size: 20px;
+      color: #4CAF50;
+    }
+  </style>
 </head>
 <body>
-    
-    <div class="background"></div>
 
-    <div id="gift-screen" class="screen">
-        <div class="gift-screen">
-            <div class="gift-image-container">
-                <img src="regalo.jpg" alt="Imagen de Regalo">
-            </div>
-            <div class="gift-message">❤️ Para mi amor, Loha ❤️</div>
-            <button class="open-button" onclick="openBook()">Abrir</button>
-        </div>
-    </div>
+  <h1>¡Aprende Matemáticas Jugando!</h1>
+  <div class="score">Puntaje: <span id="score">0</span></div>
 
-    <div id="book-container">
-        <div id="book">
-            <div class="page" id="page-1">
-                <img src="3.png" alt="Foto 1">
-                <div class="title">Nuestro primer mes</div>
-                <p>Mi amor, este mes ha sido uno de los más felices de mi vida. Tu felicidad y tu compañía me hacen muy feliz como no lo hacía desde hace mucho tiempo. Desde la primera vez que te vi, supe que había algo especial en ti. Sentí una conexión increíble, algo que nunca había sentido antes y en ese momento supe que tú serías la mujer con la que quisiera pasar toda mi vida.</p>
-            </div>
-            <div class="page" id="page-2">
-                <img src="4.png" alt="Foto 2">
-                <div class="title">El dia que supe que eras tú ❤️</div>
-                <p>Fue en nuestra segunda cita, cuando bajábamos de las escaleras para ir a la playa agarrados de la mano fue hermoso, nos sentamos frente al mar y pensaba lo muy afortunado que era al estar al lado de una persona tan increíble, cuando pasamos todo ese tiempo ahí hablando, me di cuenta que podía estar horas de horas al lado tuyo y no me aburriría nunca, cuando te veía, esos hermosos ojos que tienes sentí algo, supe que eras la persona indicada. Fue un día hermoso, nunca lo olvidaré.</p>
-            </div>
-            <div class="page" id="page-3">
-                <img id="rotating-image" src="https://via.placeholder.com/400x250" alt="Rotating Foto">
-                <div class="title">❤️ Nosotros ❤️</div>
-                <p>Este solo es el inicio de una gran historia junto a ti, te amo.</p>
-            </div>
-            <div class="page" id="page-4">
-                <div class="title">Se añadirán páginas en...</div>
-                <div id="countdown" class="countdown"></div>
-                <p>❤️</p>
-            </div>
-            <div class="controls">
-                <button id="prev-btn" onclick="prevPage()" disabled>◀</button>
-                <span class="page-indicator" id="page-indicator">1/3</span>
-                <button id="next-btn" onclick="nextPage()">▶</button>
-            </div>
-        </div>
-    </div>
+  <div class="question-container">
+    <p id="question">¿Cuánto es 5 + 3?</p>
+    <button class="option" onclick="checkAnswer(8)">8</button>
+    <button class="option" onclick="checkAnswer(6)">6</button>
+    <button class="option" onclick="checkAnswer(10)">10</button>
+    <button class="option" onclick="checkAnswer(7)">7</button>
+  </div>
 
-    <script>
-        function startCountdown(targetDate) {
-            const countdownElement = document.getElementById("countdown");
-        
-            function updateCountdown() {
-                const now = new Date();
-                const distance = targetDate - now;
-        
-                if (distance <= 0) {
-                    clearInterval(interval);
-                    countdownElement.innerHTML = "¡El día ha llegado!";
-                    return;
-                }
-        
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-                countdownElement.innerHTML = `
-                    <span>${days}d</span>
-                    <span>${hours}h</span>
-                    <span>${minutes}m</span>
-                    <span>${seconds}s</span>
-                `;
-            }
-        
-            updateCountdown(); // Llama una vez para inicializar
-            const interval = setInterval(updateCountdown, 1000);
-        }
-        
-        // Configura la fecha objetivo (6 de febrero de 2025)
-        const targetDate = new Date("2025-02-06T00:00:00");
-        startCountdown(targetDate);
-        
-        function openBook() {
-            document.getElementById('gift-screen').classList.add('hidden');
-            document.getElementById('book-container').style.display = 'flex';
-        }
+  <script>
+    let score = 0;
 
-        function generateRandomHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            const leftPosition = Math.random() * 100;
-            const animationDelay = Math.random() * 5;
-            heart.style.left = `${leftPosition}%`;
-            heart.style.animationDelay = `${animationDelay}s`;
-            document.querySelector('.background').appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }
+    function checkAnswer(answer) {
+      const correctAnswer = 8; // La respuesta correcta para la pregunta
+      if (answer === correctAnswer) {
+        score++;
+        alert("¡Correcto!");
+      } else {
+        alert("¡Intenta de nuevo!");
+      }
+      updateScore();
+      nextQuestion();
+    }
 
-        setInterval(generateRandomHeart, 500);
+    function updateScore() {
+      document.getElementById('score').textContent = score;
+    }
 
-        let currentPage = 1;
-        const totalPages = 4;
+    function nextQuestion() {
+      // Cambiar la pregunta después de responder
+      setTimeout(() => {
+        const questionElement = document.getElementById('question');
+        questionElement.textContent = "¿Cuánto es 6 + 7?"; // Nueva pregunta
+        const options = document.querySelectorAll('.option');
+        options[0].textContent = "13"; // Opción 1
+        options[1].textContent = "12"; // Opción 2
+        options[2].textContent = "15"; // Opción 3
+        options[3].textContent = "14"; // Opción 4
 
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
-            document.getElementById(`page-${page}`).style.display = 'block';
-            document.getElementById('prev-btn').disabled = page === 1;
-            document.getElementById('next-btn').disabled = page === totalPages;
-            document.getElementById('page-indicator').textContent = `${page}/${totalPages}`;
-        }
+        // Cambiar las respuestas correctas y las opciones
+        options[0].setAttribute('onclick', 'checkAnswer(13)');
+        options[1].setAttribute('onclick', 'checkAnswer(12)');
+        options[2].setAttribute('onclick', 'checkAnswer(15)');
+        options[3].setAttribute('onclick', 'checkAnswer(14)');
+      }, 1000);
+    }
+  </script>
 
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                showPage(currentPage);
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                showPage(currentPage);
-            }
-        }
-
-        const rotatingImages = [
-            "a1.JPG",
-            "a2.JPG",
-            "a3.JPG",
-            "a4.JPG",
-            "a5.jpg"
-        ];
-        let rotatingIndex = 0;
-
-        function rotateImage() {
-            rotatingIndex = (rotatingIndex + 1) % rotatingImages.length;
-            document.getElementById('rotating-image').src = rotatingImages[rotatingIndex];
-        }
-
-        setInterval(rotateImage, 3000);
-
-        showPage(currentPage);
-    </script>
 </body>
 </html>
