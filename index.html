@@ -1,102 +1,125 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matemáticas para Niños</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rompecabezas Sencillo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    h1 {
-      color: #4CAF50;
-      margin-top: 50px;
-    }
+        #puzzle-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
 
-    .question-container {
-      margin: 20px;
-      padding: 20px;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .option {
-      display: block;
-      background-color: #f2f2f2;
-      margin: 10px;
-      padding: 10px;
-      border: 2px solid #ddd;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .option:hover {
-      background-color: #e7f3e7;
-    }
-
-    .score {
-      font-size: 20px;
-      color: #4CAF50;
-    }
-  </style>
+        .puzzle-piece {
+            position: absolute;
+            cursor: grab;
+            user-select: none;
+            border: 2px solid #000;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
+    <div id="puzzle-container"></div>
 
-  <h1>¡Aprende Matemáticas Jugando!</h1>
-  <div class="score">Puntaje: <span id="score">0</span></div>
+    <script>
+        // Configuración del rompecabezas
+        const rows = 3; // Número de filas
+        const cols = 3; // Número de columnas
+        const pieceSize = 100; // Tamaño de cada pieza en píxeles
 
-  <div class="question-container">
-    <p id="question">¿Cuánto es 5 + 3?</p>
-    <button class="option" onclick="checkAnswer(8)">8</button>
-    <button class="option" onclick="checkAnswer(6)">6</button>
-    <button class="option" onclick="checkAnswer(10)">10</button>
-    <button class="option" onclick="checkAnswer(7)">7</button>
-  </div>
+        // Contenedor del rompecabezas
+        const puzzleContainer = document.getElementById('puzzle-container');
 
-  <script>
-    let score = 0;
+        // Crear las piezas del rompecabezas
+        function createPuzzle() {
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    const piece = document.createElement('div');
+                    piece.classList.add('puzzle-piece');
+                    piece.style.width = `${pieceSize}px`;
+                    piece.style.height = `${pieceSize}px`;
+                    piece.style.backgroundImage = `url('img.jpg')`;
+                    piece.style.backgroundSize = `${cols * pieceSize}px ${rows * pieceSize}px`;
+                    piece.style.backgroundPosition = `-${j * pieceSize}px -${i * pieceSize}px`;
 
-    function checkAnswer(answer) {
-      const correctAnswer = 8; // La respuesta correcta para la pregunta
-      if (answer === correctAnswer) {
-        score++;
-        alert("¡Correcto!");
-      } else {
-        alert("¡Intenta de nuevo!");
-      }
-      updateScore();
-      nextQuestion();
-    }
+                    // Posición aleatoria en la pantalla
+                    const randomX = Math.random() * (window.innerWidth - pieceSize);
+                    const randomY = Math.random() * (window.innerHeight - pieceSize);
+                    piece.style.left = `${randomX}px`;
+                    piece.style.top = `${randomY}px`;
 
-    function updateScore() {
-      document.getElementById('score').textContent = score;
-    }
+                    // Hacer las piezas arrastrables
+                    makeDraggable(piece);
 
-    function nextQuestion() {
-      // Cambiar la pregunta después de responder
-      setTimeout(() => {
-        const questionElement = document.getElementById('question');
-        questionElement.textContent = "¿Cuánto es 6 + 7?"; // Nueva pregunta
-        const options = document.querySelectorAll('.option');
-        options[0].textContent = "13"; // Opción 1
-        options[1].textContent = "12"; // Opción 2
-        options[2].textContent = "15"; // Opción 3
-        options[3].textContent = "14"; // Opción 4
+                    puzzleContainer.appendChild(piece);
+                }
+            }
+        }
 
-        // Cambiar las respuestas correctas y las opciones
-        options[0].setAttribute('onclick', 'checkAnswer(13)');
-        options[1].setAttribute('onclick', 'checkAnswer(12)');
-        options[2].setAttribute('onclick', 'checkAnswer(15)');
-        options[3].setAttribute('onclick', 'checkAnswer(14)');
-      }, 1000);
-    }
-  </script>
+        // Función para hacer las piezas arrastrables
+        function makeDraggable(element) {
+            let isDragging = false;
+            let offsetX, offsetY;
 
+            element.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - element.getBoundingClientRect().left;
+                offsetY = e.clientY - element.getBoundingClientRect().top;
+                element.style.cursor = 'grabbing';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const x = e.clientX - offsetX;
+                    const y = e.clientY - offsetY;
+                    element.style.left = `${x}px`;
+                    element.style.top = `${y}px`;
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                element.style.cursor = 'grab';
+            });
+
+            // Soporte para pantallas táctiles
+            element.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                const touch = e.touches[0];
+                offsetX = touch.clientX - element.getBoundingClientRect().left;
+                offsetY = touch.clientY - element.getBoundingClientRect().top;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    const touch = e.touches[0];
+                    const x = touch.clientX - offsetX;
+                    const y = touch.clientY - offsetY;
+                    element.style.left = `${x}px`;
+                    element.style.top = `${y}px`;
+                }
+            });
+
+            document.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+        }
+
+        // Iniciar el rompecabezas
+        createPuzzle();
+    </script>
 </body>
 </html>
