@@ -8,13 +8,14 @@
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            overflow: hidden; /* Evita el desplazamiento */
             background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             position: relative;
+            touch-action: none; /* Deshabilita los gestos táctiles */
         }
 
         #puzzle-container {
@@ -188,6 +189,7 @@
                     const touch = e.touches[0];
                     offsetX = touch.clientX - element.getBoundingClientRect().left;
                     offsetY = touch.clientY - element.getBoundingClientRect().top;
+                    e.preventDefault(); // Evita el desplazamiento táctil
                 }
             });
 
@@ -198,6 +200,7 @@
                     const y = touch.clientY - offsetY;
                     element.style.left = `${x}px`;
                     element.style.top = `${y}px`;
+                    e.preventDefault(); // Evita el desplazamiento táctil
                 }
             });
 
@@ -241,6 +244,11 @@
 
         // Iniciar el rompecabezas
         createPuzzle();
+
+        // Prevenir el desplazamiento táctil en el cuerpo
+        document.body.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
     </script>
 </body>
 </html>
