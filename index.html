@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rompecabezas Senc</title>
+    <title>Rompecabezas Sencillo</title>
     <style>
         body {
             margin: 0;
@@ -32,6 +32,19 @@
             background-size: 300px 300px; /* Asegura que la plantilla tenga el mismo tamaño que el rompecabezas */
             opacity: 0.3; /* Hace la plantilla semi-transparente */
             pointer-events: none; /* Evita que la plantilla interfiera con las piezas */
+        }
+
+        /* Líneas de división en la plantilla */
+        #template::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 99%, rgba(0, 0, 0, 0.1) 1%),
+                        linear-gradient(to bottom, transparent 99%, rgba(0, 0, 0, 0.1) 1%);
+            background-size: 100px 100px; /* Tamaño de cada pieza */
         }
 
         .puzzle-piece {
