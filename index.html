@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rompecabe</title>
+    <title>Rompecabezas Sencillo</title>
     <style>
         body {
             margin: 0;
@@ -164,9 +164,10 @@
                     const pieceX = rect.left - puzzleRect.left;
                     const pieceY = rect.top - puzzleRect.top;
 
+                    // Margen de error más grande (30px en lugar de 10px)
                     if (
-                        Math.abs(pieceX - element.correctX) < 10 && // Margen de error reducido
-                        Math.abs(pieceY - element.correctY) < 10
+                        Math.abs(pieceX - element.correctX) < 30 &&
+                        Math.abs(pieceY - element.correctY) < 30
                     ) {
                         // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
                         element.style.left = `${puzzleRect.left + element.correctX}px`;
@@ -210,9 +211,10 @@
                     const pieceX = rect.left - puzzleRect.left;
                     const pieceY = rect.top - puzzleRect.top;
 
+                    // Margen de error más grande (30px en lugar de 10px)
                     if (
-                        Math.abs(pieceX - element.correctX) < 10 && // Margen de error reducido
-                        Math.abs(pieceY - element.correctY) < 10
+                        Math.abs(pieceX - element.correctX) < 30 &&
+                        Math.abs(pieceY - element.correctY) < 30
                     ) {
                         // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
                         element.style.left = `${puzzleRect.left + element.correctX}px`;
