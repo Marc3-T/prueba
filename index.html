@@ -164,10 +164,10 @@
                     const pieceX = rect.left - puzzleRect.left;
                     const pieceY = rect.top - puzzleRect.top;
 
-                    // Margen de error más grande (30px en lugar de 10px)
+                    // Margen de error aumentado a 50px
                     if (
-                        Math.abs(pieceX - element.correctX) < 30 &&
-                        Math.abs(pieceY - element.correctY) < 30
+                        Math.abs(pieceX - element.correctX) < 50 &&
+                        Math.abs(pieceY - element.correctY) < 50
                     ) {
                         // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
                         element.style.left = `${puzzleRect.left + element.correctX}px`;
@@ -211,10 +211,10 @@
                     const pieceX = rect.left - puzzleRect.left;
                     const pieceY = rect.top - puzzleRect.top;
 
-                    // Margen de error más grande (30px en lugar de 10px)
+                    // Margen de error aumentado a 50px
                     if (
-                        Math.abs(pieceX - element.correctX) < 30 &&
-                        Math.abs(pieceY - element.correctY) < 30
+                        Math.abs(pieceX - element.correctX) < 50 &&
+                        Math.abs(pieceY - element.correctY) < 50
                     ) {
                         // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
                         element.style.left = `${puzzleRect.left + element.correctX}px`;
