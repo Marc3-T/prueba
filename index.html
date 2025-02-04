@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rompecabezas Sencillo</title>
+    <title>Rompecabe</title>
     <style>
         body {
             margin: 0;
@@ -21,7 +21,7 @@
             position: relative;
             width: 300px; /* Tamaño del rompecabezas */
             height: 300px;
-            border: 2px solid #000; /* Borde para visualizar el contenedor */
+            border: 1px solid #ccc; /* Borde más delgado */
         }
 
         #template {
@@ -42,8 +42,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, transparent 99%, rgba(0, 0, 0, 0.1) 1%),
-                        linear-gradient(to bottom, transparent 99%, rgba(0, 0, 0, 0.1) 1%);
+            background: linear-gradient(to right, transparent 99%, rgba(0, 0, 0, 0.3) 1%),
+                        linear-gradient(to bottom, transparent 99%, rgba(0, 0, 0, 0.3) 1%);
             background-size: 100px 100px; /* Tamaño de cada pieza */
         }
 
@@ -51,7 +51,7 @@
             position: absolute;
             cursor: grab;
             user-select: none;
-            border: 2px solid #000;
+            border: 1px solid #000; /* Borde más delgado */
             box-sizing: border-box;
             transition: transform 0.2s ease;
         }
@@ -165,8 +165,8 @@
                     const pieceY = rect.top - puzzleRect.top;
 
                     if (
-                        Math.abs(pieceX - element.correctX) < 20 &&
-                        Math.abs(pieceY - element.correctY) < 20
+                        Math.abs(pieceX - element.correctX) < 10 && // Margen de error reducido
+                        Math.abs(pieceY - element.correctY) < 10
                     ) {
                         // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
                         element.style.left = `${puzzleRect.left + element.correctX}px`;
@@ -211,8 +211,8 @@
                     const pieceY = rect.top - puzzleRect.top;
 
                     if (
-                        Math.abs(pieceX - element.correctX) < 20 &&
-                        Math.abs(pieceY - element.correctY) < 20
+                        Math.abs(pieceX - element.correctX) < 10 && // Margen de error reducido
+                        Math.abs(pieceY - element.correctY) < 10
                     ) {
                         // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
                         element.style.left = `${puzzleRect.left + element.correctX}px`;
