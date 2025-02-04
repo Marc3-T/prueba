@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rompecabezas Sencillo</title>
+    <title>Rompecabezas Senc</title>
     <style>
         body {
             margin: 0;
@@ -21,6 +21,7 @@
             position: relative;
             width: 300px; /* Tamaño del rompecabezas */
             height: 300px;
+            border: 2px solid #000; /* Borde para visualizar el contenedor */
         }
 
         #template {
@@ -28,7 +29,7 @@
             width: 100%;
             height: 100%;
             background-image: url('a4.JPG');
-            background-size: cover;
+            background-size: 300px 300px; /* Asegura que la plantilla tenga el mismo tamaño que el rompecabezas */
             opacity: 0.3; /* Hace la plantilla semi-transparente */
             pointer-events: none; /* Evita que la plantilla interfiera con las piezas */
         }
@@ -104,7 +105,7 @@
                     piece.style.left = `${randomX}px`;
                     piece.style.top = `${randomY}px`;
 
-                    // Posición correcta de la pieza
+                    // Posición correcta de la pieza (relativa al contenedor del rompecabezas)
                     piece.correctX = j * pieceSize;
                     piece.correctY = i * pieceSize;
 
@@ -154,9 +155,9 @@
                         Math.abs(pieceX - element.correctX) < 20 &&
                         Math.abs(pieceY - element.correctY) < 20
                     ) {
-                        // Colocar la pieza en la posición correcta
-                        element.style.left = `${element.correctX}px`;
-                        element.style.top = `${element.correctY}px`;
+                        // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
+                        element.style.left = `${puzzleRect.left + element.correctX}px`;
+                        element.style.top = `${puzzleRect.top + element.correctY}px`;
                         element.classList.add('correct');
                         element.style.cursor = 'default';
 
@@ -200,9 +201,9 @@
                         Math.abs(pieceX - element.correctX) < 20 &&
                         Math.abs(pieceY - element.correctY) < 20
                     ) {
-                        // Colocar la pieza en la posición correcta
-                        element.style.left = `${element.correctX}px`;
-                        element.style.top = `${element.correctY}px`;
+                        // Colocar la pieza en la posición correcta (relativa al contenedor del rompecabezas)
+                        element.style.left = `${puzzleRect.left + element.correctX}px`;
+                        element.style.top = `${puzzleRect.top + element.correctY}px`;
                         element.classList.add('correct');
                         element.style.cursor = 'default';
 
