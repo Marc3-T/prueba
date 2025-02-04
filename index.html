@@ -28,6 +28,7 @@
             user-select: none;
             border: 2px solid #000;
             box-sizing: border-box;
+            transition: transform 0.2s ease;
         }
     </style>
 </head>
@@ -39,9 +40,13 @@
         const rows = 3; // Número de filas
         const cols = 3; // Número de columnas
         const pieceSize = 100; // Tamaño de cada pieza en píxeles
+        const snapThreshold = 20; // Distancia para el efecto de imán
 
         // Contenedor del rompecabezas
         const puzzleContainer = document.getElementById('puzzle-container');
+
+        // Almacenar las posiciones correctas de las piezas
+        const correctPositions = [];
 
         // Crear las piezas del rompecabezas
         function createPuzzle() {
@@ -54,6 +59,11 @@
                     piece.style.backgroundImage = `url('a4.JPG')`;
                     piece.style.backgroundSize = `${cols * pieceSize}px ${rows * pieceSize}px`;
                     piece.style.backgroundPosition = `-${j * pieceSize}px -${i * pieceSize}px`;
+
+                    // Posición correcta de la pieza
+                    const correctX = j * pieceSize;
+                    const correctY = i * pieceSize;
+                    correctPositions.push({ element: piece, correctX, correctY });
 
                     // Posición aleatoria en la pantalla
                     const randomX = Math.random() * (window.innerWidth - pieceSize);
@@ -87,12 +97,15 @@
                     const y = e.clientY - offsetY;
                     element.style.left = `${x}px`;
                     element.style.top = `${y}px`;
+                    checkSnap(element); // Verificar el efecto de imán
                 }
             });
 
             document.addEventListener('mouseup', () => {
                 isDragging = false;
                 element.style.cursor = 'grab';
+                snapToCorrectPosition(element); // Ajustar a la posición correcta si está cerca
+                checkCompletion(); // Verificar si el rompecabezas está completo
             });
 
             // Soporte para pantallas táctiles
@@ -110,12 +123,67 @@
                     const y = touch.clientY - offsetY;
                     element.style.left = `${x}px`;
                     element.style.top = `${y}px`;
+                    checkSnap(element); // Verificar el efecto de imán
                 }
             });
 
             document.addEventListener('touchend', () => {
                 isDragging = false;
+                snapToCorrectPosition(element); // Ajustar a la posición correcta si está cerca
+                checkCompletion(); // Verificar si el rompecabezas está completo
             });
+        }
+
+        // Función para verificar el efecto de imán
+        function checkSnap(element) {
+            for (const { element: piece, correctX, correctY } of correctPositions) {
+                if (piece === element) {
+                    const rect = element.getBoundingClientRect();
+                    const distanceX = Math.abs(rect.left - correctX);
+                    const distanceY = Math.abs(rect.top - correctY);
+
+                    if (distanceX < snapThreshold && distanceY < snapThreshold) {
+                        element.style.transform = `translate(${correctX - rect.left}px, ${correctY - rect.top}px)`;
+                    } else {
+                        element.style.transform = 'none';
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Función para ajustar la pieza a su posición correcta
+        function snapToCorrectPosition(element) {
+            for (const { element: piece, correctX, correctY } of correctPositions) {
+                if (piece === element) {
+                    const rect = element.getBoundingClientRect();
+                    const distanceX = Math.abs(rect.left - correctX);
+                    const distanceY = Math.abs(rect.top - correctY);
+
+                    if (distanceX < snapThreshold && distanceY < snapThreshold) {
+                        element.style.left = `${correctX}px`;
+                        element.style.top = `${correctY}px`;
+                        element.style.transform = 'none';
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Función para verificar si el rompecabezas está completo
+        function checkCompletion() {
+            let isComplete = true;
+            for (const { element, correctX, correctY } of correctPositions) {
+                const rect = element.getBoundingClientRect();
+                if (Math.abs(rect.left - correctX) > snapThreshold || Math.abs(rect.top - correctY) > snapThreshold) {
+                    isComplete = false;
+                    break;
+                }
+            }
+
+            if (isComplete) {
+                alert('¡Felicidades! Has completado el rompecabezas.');
+            }
         }
 
         // Iniciar el rompecabezas
