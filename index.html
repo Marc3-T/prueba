@@ -318,6 +318,16 @@
                 <p>Este solo es el inicio de una gran historia junto a ti, te amo.</p>
             </div>
             <div class="page" id="page-4">
+                <img src="3.png" alt="Foto 1">
+                <div class="title">Nuestro primer mes</div>
+                <p>Mi amor, este mes ha sido uno de los más felices de mi vida. Tu felicidad y tu compañía me hacen muy feliz como no lo hacía desde hace mucho tiempo. Desde la primera vez que te vi, supe que había algo especial en ti. Sentí una conexión increíble, algo que nunca había sentido antes y en ese momento supe que tú serías la mujer con la que quisiera pasar toda mi vida.</p>
+            </div>
+            <div class="page" id="page-5">
+                <img src="3.png" alt="Foto 1">
+                <div class="title">Nuestro primer mes</div>
+                <p>Mi amor, este mes ha sido uno de los más felices de mi vida. Tu felicidad y tu compañía me hacen muy feliz como no lo hacía desde hace mucho tiempo. Desde la primera vez que te vi, supe que había algo especial en ti. Sentí una conexión increíble, algo que nunca había sentido antes y en ese momento supe que tú serías la mujer con la que quisiera pasar toda mi vida.</p>
+            </div>
+            <div class="page" id="page-6">
                 <div class="title">Se añadirán páginas en...</div>
                 <div id="countdown" class="countdown"></div>
                 <p>❤️</p>
@@ -364,6 +374,7 @@
         // Configura la fecha objetivo (6 de febrero de 2025)
         const targetDate = new Date("2025-02-06T00:00:00");
         startCountdown(targetDate);
+
         
         function openBook() {
             document.getElementById('gift-screen').classList.add('hidden');
@@ -383,8 +394,8 @@
 
         setInterval(generateRandomHeart, 500);
 
-        let currentPage = 1;
-        const totalPages = 4;
+        let currentPage = 4;
+        const totalPages = 6;
 
         function showPage(page) {
             document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
